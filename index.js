@@ -13,11 +13,7 @@ const uploadPath = path.join(__dirname, 'uploads/');
 fs.ensureDir(uploadPath); 
 
 
- 
- 
-/**
- * Create route /upload which handles the post request
- */
+
 app.route('/upload').post((req, res, next) => {
  
     req.pipe(req.busboy); // Pipe it trough busboy
@@ -27,7 +23,7 @@ app.route('/upload').post((req, res, next) => {
  
         // Create a write stream of the new file
         const fstream = fs.createWriteStream(path.join(uploadPath, filename));
-        // Pipe it trough
+        
         file.pipe(fstream);
  
         // On finish of the upload
@@ -40,7 +36,7 @@ app.route('/upload').post((req, res, next) => {
  
  
 /**
- * Serve the basic index.html with upload form
+ * Serve the basic index.html
  */
 app.route('/').get((req, res) => {
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -51,6 +47,6 @@ app.route('/').get((req, res) => {
     return res.end();
 });
  
-const server = app.listen(3200, function () {
+const server = app.listen(3500, function () {
     console.log(`Listening on port ${server.address().port}`);
 });
